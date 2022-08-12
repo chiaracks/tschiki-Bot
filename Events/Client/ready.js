@@ -3,11 +3,16 @@ const mongoose = require("mongoose");
 const pogger = __importStar(require("pogger"));
 
 client.on("ready", async () => {
+  const currentGuild = client.guilds.cache.get(process.env.GUILD_ID);
+  const logChannel = currentGuild.channels.cache.find((c) => c.id === process.env.LOGCHANNEL);
+
+  logChannel.bulkDelete(100, true);
+
   const activities = [
-    { name: `${client.guilds.cache.size} Servers`, type: 2 }, // LISTENING
-    { name: `${client.channels.cache.size} Channels`, type: 0 }, // PLAYING
-    { name: `${client.users.cache.size} Users`, type: 3 }, // WATCHING
-    { name: `Discord.js v14`, type: 5 }, // COMPETING
+    { name: `${client.channels.cache.size} Channels`, type: 0 },
+    { name: `Arch Hobo's Hideout`, type: 0 },
+    { name: `${client.users.cache.size} Users`, type: 3 },
+    { name: `Discord.js v14`, type: 5 },
   ];
   const status = ["online", "dnd", "idle"];
   let i = 0;
@@ -55,7 +60,6 @@ client.on("ready", async () => {
   client.player = player;
 
   var queue = client.player.createQueue(process.env.GUILD_ID);
-  const currentGuild = client.guilds.cache.get(process.env.GUILD_ID);
   const voiceChannelMusic = currentGuild.channels.cache.get(process.env.MUSICCHANNEL);
   await queue.join(voiceChannelMusic);
 
