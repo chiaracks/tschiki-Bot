@@ -1,6 +1,6 @@
 const { EmbedBuilder, WebhookClient } = require("discord.js");
 const { inspect } = require("util");
-const pogger = __importStar(require("pogger"));
+const chalk = require("chalk");
 
 const webhook = new WebhookClient({
   url: process.env.DEVLOG_WEBHOOK
@@ -9,7 +9,7 @@ const webhook = new WebhookClient({
 module.exports = (client) => {
   const embed = new EmbedBuilder();
   client.on("error", (err) => {
-    pogger.error(`[CLIENT] ${err}`);
+    console.log(chalk.grey(new Date().toLocaleTimeString()), `🌚[CLIENT] ${err}`);
 
     embed
       .setTitle("Discord API Error")
@@ -22,7 +22,7 @@ module.exports = (client) => {
   });
 
   process.on("unhandledRejection", (reason, promise) => {
-    pogger.error(`[CLIENT] ${reason} \n ${promise}`);
+    console.log(chalk.grey(new Date().toLocaleTimeString()),`🌚[CLIENT] ${reason} \n ${promise}`);
 
     embed
       .setTitle("**Unhandled Rejection/Catch**")
@@ -44,7 +44,7 @@ module.exports = (client) => {
   });
 
   process.on("uncaughtException", (err, origin) => {
-    pogger.error(`[CLIENT] ${err} \n ${origin}`);
+    console.log(chalk.grey(new Date().toLocaleTimeString()),`🌚[CLIENT] ${err} \n ${origin}`);
 
     embed
       .setTitle("**Uncaught Exception/Catch**")
@@ -66,7 +66,7 @@ module.exports = (client) => {
   });
 
   process.on("uncaughtExceptionMonitor", (err, origin) => {
-    pogger.error(`[CLIENT] ${err} \n ${origin}`);
+    console.log(chalk.grey(new Date().toLocaleTimeString()), `🌚[CLIENT] ${err} \n ${origin}`);
 
     embed
       .setTitle("**Uncaught Exception Monitor**")
@@ -88,7 +88,7 @@ module.exports = (client) => {
   });
 
   process.on("warning", (warn) => {
-    pogger.warning(`[CLIENT] ${warn}`);
+    console.log(chalk.grey(new Date().toLocaleTimeString()), `🌚[CLIENT] ${warn}`);
 
     embed
       .setTitle("**Uncaught Exception Monitor Warning**")

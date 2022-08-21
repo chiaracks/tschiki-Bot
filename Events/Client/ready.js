@@ -1,6 +1,6 @@
 const client = require("../..");
 const mongoose = require("mongoose");
-const pogger = __importStar(require("pogger"));
+const chalk = require("chalk");
 
 client.on("ready", async () => {
   const currentGuild = client.guilds.cache.get(process.env.GUILD_ID);
@@ -10,7 +10,7 @@ client.on("ready", async () => {
 
   const activities = [
     { name: `${client.channels.cache.size} Channels`, type: 0 },
-    { name: `Arch Hobo's Hideout`, type: 0 },
+    { name: `tschiki`, type: 2 },
     { name: `${client.users.cache.size} Users`, type: 3 },
     { name: `Discord.js v14`, type: 5 },
   ];
@@ -37,6 +37,7 @@ client.on("ready", async () => {
         useUnifiedTopology: true,
       })
       .then(() => {
+        console.log(chalk.grey(new Date().toLocaleTimeString()), "🐳 [CLIENT]: Mongo Database • Connected")
         pogger.info(`[CLIENT]: Mongo Database • Connected`);
       })
       .catch((err) => {
@@ -44,24 +45,5 @@ client.on("ready", async () => {
       });
   }
 
-  //Setup Discord-Together
-  const { DiscordTogether } = require("discord-together");
-  client.discordTogether = new DiscordTogether(client);
-
-  //Setup XP
-  const Levels = require("discord-xp");
-  Levels.setURL(Database);
-
-  //Setup Music Player
-  const { Player } = require("../../structures/functions/discord-music-player/dist/Player");
-  const player = new Player(client, {
-    leaveOnEmpty: false,
-  });
-  client.player = player;
-
-  var queue = client.player.createQueue(process.env.GUILD_ID);
-  const voiceChannelMusic = currentGuild.channels.cache.get(process.env.MUSICCHANNEL);
-  await queue.join(voiceChannelMusic);
-
-  pogger.info(`[CLIENT]: Status • Online`);
+  console.log(chalk.grey(new Date().toLocaleTimeString()), "🐳 [CLIENT]: Status • Online")
 });

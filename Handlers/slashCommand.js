@@ -4,7 +4,7 @@ const chalk = require("chalk");
 const { PermissionsBitField } = require("discord.js");
 const { Routes } = require("discord-api-types/v9");
 const { REST } = require("@discordjs/rest");
-const pogger = __importStar(require("pogger"));
+const chalk = require("chalk");
 
 const AsciiTable = require("ascii-table");
 const table = new AsciiTable()
@@ -53,7 +53,7 @@ module.exports = (client) => {
     }
   });
   console.log(chalk.white(table.toString()));
-  console.log(chalk.cyan("\n\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀--- GemBot LOGS Area: ---\n\n"));
+  console.log(chalk.cyan("\n\n⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀--- GemBot LOGS Area: ---\n\n"))
   (async () => {
     try {
       await rest.put(
@@ -62,7 +62,7 @@ module.exports = (client) => {
           : Routes.applicationCommands(CLIENT_ID),
         { body: slashCommands }
       );
-      pogger.info(`[CLIENT]: Slash Commands • Registered`);
+      console.log(chalk.grey(new Date().toLocaleTimeString()), '[CLIENT]: Slash Commands • Registered');
     } catch (error) {
       console.log(error);
     }
